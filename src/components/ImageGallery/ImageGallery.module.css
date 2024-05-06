@@ -1,0 +1,10 @@
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.item {
+    height: 350px;
+    flex-basis: calc((100% - 24px) / 4);
+}
