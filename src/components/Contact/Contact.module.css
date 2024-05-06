@@ -1,0 +1,31 @@
+.item {
+    border: 1px solid #000;
+    border-radius: 10px;
+    width: 350px;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+    gap: 4px
+}
+
+.delete_button {
+    font-size: inherit;
+    border: inherit;
+    border-radius: 5px;
+    height: 50px;
+    width: 100px;
+    align-self: center;
+}
