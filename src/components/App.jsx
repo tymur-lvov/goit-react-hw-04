@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { fetchData } from "../services/api";
 import SearchBar from "./SearchBar/SearchBar";
 import ImageGallery from "./ImageGallery/ImageGallery";
@@ -16,6 +16,16 @@ function App() {
 
   const page = useRef();
   const img = useRef();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (!isFirstRender.current) {
+      scrollBy({
+        top: img.current.getBoundingClientRect().height * 2,
+        behavior: "smooth",
+      });
+    }
+  }, [gallery]);
 
   const handleSearchQuery = async (searchQuery) => {
     try {
@@ -46,15 +56,11 @@ function App() {
       setIsLoading(true);
 
       ++page.current;
+      isFirstRender.current = false;
 
       const { data } = await fetchData(query, page.current);
 
       setGallery((prevGallery) => [...prevGallery, ...data.results]);
-
-      scrollBy({
-        top: img.current.getBoundingClientRect().height * 2,
-        behavior: "smooth",
-      });
 
       if (page.current === data.total_pages) {
         setIsLimit(false);
