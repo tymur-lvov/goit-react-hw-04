@@ -29,7 +29,7 @@ function SearchBar({ onSubmit }) {
           autoFocus
           placeholder="Search images and photos"
         />
-        <button className={s.button} type="submit">
+        <button className="button" type="submit">
           Search
         </button>
       </form>

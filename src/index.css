@@ -149,3 +149,11 @@ ul {
 body {
   font-size: 20px;
 }
+
+.button {
+  font-size: inherit;
+  border: 1px solid #000;
+  border-radius: 5px;
+  height: 30px;
+  width: 120px;
+}
