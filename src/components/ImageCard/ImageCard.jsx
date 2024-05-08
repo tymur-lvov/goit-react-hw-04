@@ -1,9 +1,9 @@
 import s from "./ImageCard.module.css";
 
-function ImageCard({ src, alt }) {
+function ImageCard({ src, alt, onClick, src_regular }) {
   return (
     <div className={s.wrapper}>
-      <img src={src} alt={alt} />
+      <img onClick={() => onClick(src_regular, alt)} src={src} alt={alt} />
     </div>
   );
 }

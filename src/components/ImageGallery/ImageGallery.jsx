@@ -9,13 +9,13 @@ const ImageGallery = forwardRef(function ImageGallery(
   return (
     <ul className={s.list}>
       {gallery.map((img) => (
-        <li
-          onClick={() => onClick(img.urls.regular, img.alt_description)}
-          className={s.item}
-          key={img.id}
-          ref={ref}
-        >
-          <ImageCard src={img.urls.small} alt={img.alt_description} />
+        <li className={s.item} key={img.id} ref={ref}>
+          <ImageCard
+            src={img.urls.small}
+            src_regular={img.urls.regular}
+            alt={img.alt_description}
+            onClick={onClick}
+          />
         </li>
       ))}
     </ul>
