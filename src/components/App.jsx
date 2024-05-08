@@ -6,16 +6,19 @@ import ImageGallery from "./ImageGallery/ImageGallery";
 import Loader from "./Loader/Loader";
 import ErrorMessage from "./ErrorMessage/ErrorMessage";
 import LoadMoreBtn from "./LoadMoreBtn/LoadMoreBtn";
+import ImageModal from "./ImageModal/ImageModal";
 
 function App() {
   const [gallery, setGallery] = useState([]);
+  const [query, setQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isLimit, setIsLimit] = useState(false);
-  const [query, setQuery] = useState("");
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const page = useRef();
   const img = useRef();
+  const modalImg = useRef();
   const isFirstRender = useRef(true);
 
   useEffect(() => {
@@ -72,14 +75,48 @@ function App() {
     }
   };
 
+  const handleImgClick = (url, alt) => {
+    modalImg.current = {
+      url,
+      alt,
+    };
+
+    openModal();
+  };
+
+  const handleModalClick = (event) => {
+    if (event.target.nodeName !== "DIV") {
+      return;
+    }
+    closeModal();
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+  };
+
   return (
     <>
       <Toaster position="top-right" reverseOrder={false} />
       <SearchBar onSubmit={handleSearchQuery} />
-      {gallery.length > 0 && <ImageGallery ref={img} gallery={gallery} />}
+      {gallery.length > 0 && (
+        <ImageGallery onClick={handleImgClick} ref={img} gallery={gallery} />
+      )}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {isLimit && <LoadMoreBtn onClick={handleLoadMore} />}
+      {modalIsOpen && (
+        <ImageModal
+          onClick={handleModalClick}
+          modalIsOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          modalImg={modalImg.current}
+        />
+      )}
     </>
   );
 }
